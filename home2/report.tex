@@ -1,0 +1,141 @@
+\documentclass[a4paper,14pt]{extreport} % формат документа
+
+\usepackage{amsmath}
+\usepackage{cmap} % поиск в ПДФ
+\usepackage[T2A]{fontenc} % кодировка
+\usepackage[utf8]{inputenc} % кодировка исходного текста
+\usepackage[english,russian]{babel} % локализация и переносы
+\usepackage[left = 2cm, right = 1cm, top = 2cm, bottom = 2 cm]{geometry} % поля
+\usepackage{listings}
+\usepackage{graphicx} % для вставки рисунков
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{multirow}
+\graphicspath{{pictures/}}
+\usepackage{amsfonts}
+\usepackage{breqn}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\newcommand{\anonsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
+\renewcommand{\thesection}{\arabic{section}}
+
+\begin{document}
+\begin{titlepage}
+
+    \begin{table}[H]
+        \centering
+        \footnotesize
+        \begin{tabular}{cc}
+            \multirow{8}{*}{\includegraphics[scale=0.35]{bmstu.jpg}}
+            & \\
+            & \\
+            & \textbf{Министерство науки и высшего образования Российской Федерации} \\
+            & \textbf{Федеральное государственное бюджетное образовательное учреждение} \\
+            & \textbf{высшего образования} \\
+            & \textbf{<<Московский государственный технический} \\
+            & \textbf{университет имени Н.Э. Баумана>>} \\
+            & \textbf{(МГТУ им. Н.Э. Баумана)} \\
+        \end{tabular}
+    \end{table}
+
+    \vspace{-2.5cm}
+
+    \begin{flushleft}
+        \rule[-1cm]{\textwidth}{3pt}
+        \rule{\textwidth}{1pt}
+    \end{flushleft}
+
+    \begin{flushleft}
+        \small
+        ФАКУЛЬТЕТ
+        \underline{<<Информатика и системы управления>>\ \ \ \ \ \ \ 
+        \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ } \\
+        КАФЕДРА
+        \underline{<<Программное обеспечение ЭВМ и
+        информационные технологии>>
+        \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+    \end{flushleft}
+
+    \vspace{2cm}
+
+    \begin{center}
+        \textbf{Домашняя работа № 2} \\
+        \vspace{0.5cm}
+    \end{center}
+
+    \vspace{5cm}
+
+    \begin{flushleft}
+        \begin{tabular}{ll}
+            \textbf{Дисциплина} & Математическая статистика.  \\
+            \textbf{Студент} & Сиденко А.Г. \\
+            \textbf{Группа} & ИУ7-63Б \\
+            \textbf{Вариант} & 22 \\
+            \textbf{Оценка (баллы)} & \\
+            \textbf{Преподаватель} & Власов П.А.   \\
+        \end{tabular}
+    \end{flushleft}
+
+    \vspace{4cm}
+
+   \begin{center}
+        Москва, 2020 г.
+    \end{center}
+
+\end{titlepage}
+
+\section{Задача 1 (проверка параметрических гипотез)}
+
+\hfill
+
+\textbf{Условие}
+
+Давление в камере измеряется двумя манометрами. Для сравнения точности этих приборов через некоторые промежутки времени были $n = 10$ раз синхронно сняты их показания, в результате чего получены значения (в единицах шкалы приборов) $\overline x_n = 1573$, $S^2(\vec x_n) = 0.72$ (для первого прибора) и $\overline y_n = 1671$, $S^2(\vec y_n) = 0.15$ (для второго прибора). Считая распределение ошибок нормальным, с использованием одностороннего критерия при уровне значимости $\alpha = 0.01$ проверить гипотезу о равенстве дисперсий.
+
+\hfill
+
+\textbf{Решение}
+
+\begin{enumerate}
+
+\item Введем нулевую гипотезу. 
+
+$H_0=\{\text{Дисперсии равны: } \sigma_1=\sigma_2\}$
+
+\item Конкурирующая гипотеза. 
+
+$H_1=\{\sigma_1>\sigma_2\}$
+
+\item Используем статистику. 
+
+$T(\vec x_n,\vec y_n)\sim F(n-1, n-1)$
+
+\item Построим критическое множество. 
+
+$W=\{(\vec x, \vec y):T(\vec x_n,\vec y_n)\ge F_{1-\alpha}(n-1, n-1)\}$, где
+
+$F_{1-\alpha}$ -- квантиль распределения Фишера. 
+
+\item Вычислим статистику. 
+
+$$T(\vec x_n,\vec y_n)=\frac{\max\{S^2(\vec x_n), S^2(\vec y_n)\}}{\min \{S^2(\vec x_n), S^2(\vec y_n)\}}=\frac{S^2(\vec x_n)}{S^2(\vec y_n)}=\frac{0.72}{0.15}=4.8$$
+
+\item Значение квантили узнаем с помощью функции finv в Matlab:
+
+$F_{1-\alpha}(9,9)=F_{0.99}=5.35$
+
+\item Вывод
+
+$4.8 \ngeq 5.35~ \Rightarrow ~ (\vec x, \vec y) \notin W~ \Rightarrow~$ отвергаем гипотезу $H_1$, принимаем $H_0$. 
+
+\end{enumerate}
+
+\hfill
+
+\textbf{Ответ:}
+
+При уровне значимости $\alpha=0.01$ дисперсии параметров манометров равны. 
+
+\end{document}
